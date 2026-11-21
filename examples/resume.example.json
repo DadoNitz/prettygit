@@ -1,0 +1,19 @@
+{
+  "summary": "Fictional example: software developer building accessible web tools.",
+  "experience": [
+    {
+      "role": "Software Developer",
+      "company": "Example Company",
+      "period": "2023–2026",
+      "description": "Built and maintained internal tools with the product team."
+    }
+  ],
+  "education": [
+    {
+      "course": "BSc in Computer Science",
+      "school": "Example University",
+      "period": "2019–2023"
+    }
+  ],
+  "skills": ["JavaScript", "Node.js", "Git"]
+}

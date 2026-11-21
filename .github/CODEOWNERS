@@ -1,0 +1,24 @@
+# Current owner; uncomment real organization teams only after they exist.
+* @DadoNitz
+/bin/ @DadoNitz
+/src/ @DadoNitz
+/test/ @DadoNitz
+/src/styles/ @DadoNitz
+/styles/ @DadoNitz
+/skills/ @DadoNitz
+/agents/ @DadoNitz
+/.claude-plugin/ @DadoNitz
+/examples/ @DadoNitz
+/AGENTS.md @DadoNitz
+/docs/ @DadoNitz
+/README.md @DadoNitz
+/CONTRIBUTING.md @DadoNitz
+/.github/ @DadoNitz
+# /bin/ @YOUR-ORG/core-cli
+# /src/github.mjs @YOUR-ORG/core-cli
+# /src/pdf.mjs @YOUR-ORG/core-cli
+# /src/styles/ @YOUR-ORG/styles
+# /skills/ @YOUR-ORG/skills-agent
+# /agents/ @YOUR-ORG/skills-agent
+# /docs/ @YOUR-ORG/docs-community
+# /README.md @YOUR-ORG/docs-community

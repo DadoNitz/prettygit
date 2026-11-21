@@ -1,0 +1,25 @@
+name: Bug report
+description: Report a reproducible problem.
+title: "[Bug] "
+body:
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Node version, prettygit version or commit; browser for PDF issues.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Include the command and fictional input. Remove tokens and personal details.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Expected and actual behavior
+      description: Include sanitized errors or screenshots if helpful.
+    validations:
+      required: true

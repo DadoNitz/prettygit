@@ -1,0 +1,4 @@
+out/
+node_modules/
+resume.json
+.nitz/

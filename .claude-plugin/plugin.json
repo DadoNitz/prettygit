@@ -1,0 +1,8 @@
+{
+  "name": "prettygit",
+  "version": "0.1.0",
+  "description": "Audit GitHub profiles, draft READMEs, and build PDF resumes.",
+  "author": { "name": "DadoNitz" },
+  "repository": "https://github.com/DadoNitz/prettygit",
+  "license": "MIT"
+}

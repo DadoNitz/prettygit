@@ -1,0 +1,10 @@
+{
+  "name": "prettygit",
+  "version": "0.1.0",
+  "description": "AI agent + skills kit to polish your GitHub profile and turn it into a PDF resume.",
+  "type": "module",
+  "bin": { "prettygit": "bin/prettygit.mjs" },
+  "scripts": { "test": "node --test" },
+  "engines": { "node": ">=20" },
+  "license": "MIT"
+}

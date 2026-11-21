@@ -1,0 +1,24 @@
+name: New style
+description: Propose a README and resume style.
+title: "[Style] "
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Style name
+    validations:
+      required: true
+  - type: textarea
+    id: audience
+    attributes:
+      label: Audience and difference
+      description: Who needs this, and how does it differ from the existing styles?
+    validations:
+      required: true
+  - type: textarea
+    id: direction
+    attributes:
+      label: Tone and layout
+      description: Voice, emoji use, length, and fictional README/resume examples or references.
+    validations:
+      required: true
