@@ -3,3 +3,5 @@ node_modules/
 resume.json
 .nitz/
 .playwright-mcp/
+
+.vercel

@@ -6,6 +6,8 @@ An AI agent and skills kit to improve your GitHub profile and turn it into a PDF
 
 <p align="center"><img src="https://img.shields.io/github/stars/DadoNitz/prettygit?style=flat-square&color=000000" alt="stars"/> <img src="https://img.shields.io/badge/dependencies-0-000000?style=flat-square" alt="zero dependencies"/> <img src="https://img.shields.io/badge/Claude_Code-plugin-000000?style=flat-square" alt="Claude Code plugin"/> <img src="https://img.shields.io/github/license/DadoNitz/prettygit?style=flat-square&color=000000" alt="license"/></p>
 
+**Try it in the browser: https://prettygit-ruddy.vercel.app**, no install. Optional AI rewrite with your own Anthropic key, which never leaves your browser.
+
 If prettygit made your profile better, a ⭐ helps other people find it.
 
 ## Quickstart
