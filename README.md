@@ -55,6 +55,18 @@ Other agents can follow [AGENTS.md](AGENTS.md) and read the same skills directly
 
 See [voice, emoji, and length guidance](styles/README.md). The agent refines template text; review the PDF's page count and layout before sharing.
 
+## Polish bot
+
+`bot/run.mjs` picks one repo from the allowlist in `bot/targets.json`, runs Claude Code headless with the [frontend-polish](skills/frontend-polish/SKILL.md) skill (Apple-style motion and feedback, tasteful visuals, `prefers-reduced-motion` safe) and opens **one draft PR**.
+
+```sh
+node bot/run.mjs                      # next repo in rotation
+node bot/run.mjs owner/repo --dry-run # commit locally, no PR
+node bot/run.mjs --discover           # suggest candidate repos; never opens PRs
+```
+
+It runs weekly via `.github/workflows/polish-bot.yml` (secrets: `CLAUDE_CODE_OAUTH_TOKEN` or `ANTHROPIC_API_KEY`, and `BOT_GH_TOKEN`). It only opens PRs on allowlisted repos, at most one open PR per repo, and the agent never receives the GitHub token. Only add a repo you own or whose maintainers welcome UI contributions: unsolicited bot PRs are spam.
+
 ## Layout
 
 ```text

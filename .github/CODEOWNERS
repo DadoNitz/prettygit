@@ -14,6 +14,7 @@
 /README.md @DadoNitz
 /CONTRIBUTING.md @DadoNitz
 /.github/ @DadoNitz
+/bot/ @DadoNitz
 # /bin/ @YOUR-ORG/core-cli
 # /src/github.mjs @YOUR-ORG/core-cli
 # /src/pdf.mjs @YOUR-ORG/core-cli

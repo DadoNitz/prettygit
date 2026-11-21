@@ -1,0 +1,10 @@
+{
+  "_comment": "Only these repos get PRs. Add a repo here only if it is yours or its maintainers welcome UI contributions.",
+  "repos": [
+    "DadoNitz/claude-usage-pwa",
+    "DadoNitz/GuaipetsSartor",
+    "DadoNitz/nightwatch-dashboard",
+    "DadoNitz/passgenerator",
+    "DadoNitz/calendario"
+  ]
+}
