@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { parseArgs } from 'node:util';
 import { fetchProfile } from '../src/github.mjs';
 import { htmlToPdf } from '../src/pdf.mjs';
@@ -14,8 +14,8 @@ const USAGE = `prettygit <command> <user|profile.json> [options]
   resume  <user|json> --style S  build resume HTML + PDF
   styles                         list styles
 
-options: --style professional|aesthetic|direct (default professional)
-         --extra resume.json     experience/education/skills not on GitHub
+options: --style professional|aesthetic|direct|noir (default professional)
+         --extra resume.json     extra data (resume: experience/education; readme: links/about/stack)
          --lang pt|en            resume labels (default pt)
          --out dir               output dir (default out/<user>)`;
 
@@ -39,10 +39,18 @@ try {
     mkdirSync(out, { recursive: true });
     const save = (name, data) => { const p = join(out, name); writeFileSync(p, data); console.log(p); return p; };
     if (cmd === 'fetch') save('profile.json', JSON.stringify(profile, null, 2));
-    if (cmd === 'readme') save(`README.${values.style}.md`, getStyle(values.style).readme(profile));
+    const extra = values.extra ? JSON.parse(readFileSync(values.extra, 'utf8')) : {};
+    if (cmd === 'readme') {
+      const style = getStyle(values.style);
+      save(`README.${values.style}.md`, style.readme(profile, { extra }));
+      // Asset paths are relative to the README, so publish them next to it in <user>/<user>.
+      for (const [path, data] of Object.entries(style.assets?.(profile, { extra }) || {})) {
+        mkdirSync(join(out, dirname(path)), { recursive: true });
+        save(path, data);
+      }
+    }
     if (cmd === 'resume') {
       const labels = LABELS[values.lang] || LABELS.pt;
-      const extra = values.extra ? JSON.parse(readFileSync(values.extra, 'utf8')) : {};
       const html = getStyle(values.style).resume(profile, { extra, labels });
       save(`resume-${values.style}.html`, html);
       const pdf = join(out, `resume-${values.style}.pdf`);
