@@ -116,7 +116,7 @@ ${stack.map(([name, logo]) => badge(name, logo)).join('\n')}
 
 ${h('featured')}
 
-${featured.map((r) => `- **[${r.name}](${r.url})**${r.description ? ` — ${r.description}` : ''}`).join('\n')}
+${featured.map((r) => `- **[${r.name}](${r.url})**${r.homepage ? ` · [live ↗](${r.homepage})` : ''}${r.description ? ` — ${r.description}` : ''}`).join('\n')}
 
 ${h('statistics')}
 
