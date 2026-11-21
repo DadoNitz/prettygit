@@ -2,6 +2,12 @@
 
 An AI agent and skills kit to improve your GitHub profile and turn it into a PDF resume. A dependency-free Node.js CLI fetches public data and generates drafts; the agent audits, interviews, and refines them. GitHub publication always requires explicit confirmation.
 
+<p align="center"><img src="docs/img/noir-profile.png" width="720" alt="A GitHub profile generated with the noir style"/><br/><sub>A real profile built with <code>prettygit readme USER --style noir</code></sub></p>
+
+<p align="center"><img src="https://img.shields.io/github/stars/DadoNitz/prettygit?style=flat-square&color=000000" alt="stars"/> <img src="https://img.shields.io/badge/dependencies-0-000000?style=flat-square" alt="zero dependencies"/> <img src="https://img.shields.io/badge/Claude_Code-plugin-000000?style=flat-square" alt="Claude Code plugin"/> <img src="https://img.shields.io/github/license/DadoNitz/prettygit?style=flat-square&color=000000" alt="license"/></p>
+
+If prettygit made your profile better, a ⭐ helps other people find it.
+
 ## Quickstart
 
 Requires Node 20+. PDF generation needs Chrome, Edge, or Chromium; set `CHROME_PATH` if it is not detected. Optional: authenticate with `gh auth login` or `GITHUB_TOKEN` for higher GitHub API limits. Never commit tokens.
