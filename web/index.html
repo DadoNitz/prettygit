@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>prettygit · deixe seu GitHub bonito</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-family=%27monospace%27 font-size=%2716%27 fill=%27white%27 text-anchor=%27middle%27%3Epg%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Gere um README de perfil do GitHub e um currículo em PDF a partir do seu perfil. Estilos professional, aesthetic, direct e noir.">
+<style>
+:root { --bg:#0a0a0a; --fg:#f2f2f2; --mute:#8a8a8a; --line:#262626; --card:#121212; --mono:'JetBrains Mono','Fira Code',ui-monospace,Menlo,Consolas,monospace; }
+* { box-sizing:border-box }
+body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.55 system-ui,-apple-system,'Segoe UI',sans-serif; }
+a { color:inherit }
+.wrap { max-width:1120px; margin:0 auto; padding:0 24px }
+header { padding:72px 0 40px }
+h1 { font:700 clamp(40px,7vw,84px)/1 var(--mono); letter-spacing:-.04em; margin:0 }
+.lead { color:var(--mute); max-width:56ch; margin:18px 0 0; font-size:18px }
+form { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,15rem) auto auto; gap:10px; margin:36px 0 0 }
+input, select, button { min-width:0; font:inherit; color:var(--fg); background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px }
+input:focus-visible, select:focus-visible, button:focus-visible, summary:focus-visible { outline:2px solid #fff; outline-offset:2px }
+button { background:#fff; color:#000; font-weight:600; cursor:pointer; transition:transform .1s ease-out }
+button:active { transform:scale(.97) }
+button.ghost { background:transparent; color:var(--fg) }
+button[disabled] { opacity:.5; cursor:progress }
+#status { min-height:24px; color:var(--mute); margin:14px 0 0; font-family:var(--mono); font-size:14px }
+#status.err { color:#ff8080 }
+details { margin:18px 0 0; border:1px solid var(--line); border-radius:12px; padding:14px 16px; background:var(--card) }
+summary { cursor:pointer; font-weight:600 }
+.ai { display:grid; grid-template-columns:1fr auto; gap:10px; margin:12px 0 6px }
+.small { color:var(--mute); font-size:13px }
+main { display:none; padding:24px 0 80px }
+main.on { display:block }
+.tabs { display:flex; gap:6px; border-bottom:1px solid var(--line); margin-bottom:18px }
+.tabs button { background:none; color:var(--mute); border:0; border-bottom:2px solid transparent; border-radius:0; padding:10px 14px }
+.tabs button[aria-selected=true] { color:var(--fg); border-color:#fff }
+.bar { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:14px }
+.panel[hidden] { display:none }
+#md { background:#0d1117; border:1px solid var(--line); border-radius:12px; padding:28px; color:#e6edf3; overflow:auto }
+#md img { max-width:100% } #md a { color:#4493f8 } #md code { background:#161b22; padding:.1em .35em; border-radius:6px }
+#md h3 { font-size:1.15em } #md table { border-collapse:collapse } #md td, #md th { border:1px solid #30363d; padding:6px 12px }
+textarea { width:100%; min-height:460px; font:13px/1.5 var(--mono); color:var(--fg); background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px }
+iframe { width:100%; height:1123px; border:0; border-radius:12px; background:#fff }
+footer { border-top:1px solid var(--line); padding:28px 0; color:var(--mute); font-size:14px }
+@media (max-width:720px) { form { grid-template-columns:1fr 1fr } form input { grid-column:1/-1 } iframe { height:760px } }
+@media (prefers-reduced-motion:reduce) { button { transition:none } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>prettygit_</h1>
+    <p class="lead">Digite seu usuário do GitHub, escolha um estilo e saia com um README de perfil pronto e um currículo em PDF. Tudo roda no seu navegador.</p>
+    <form id="f">
+      <input id="user" placeholder="usuário do GitHub" autocomplete="off" required pattern="[A-Za-z0-9\-]{1,39}" aria-label="Usuário do GitHub">
+      <select id="style" aria-label="Estilo"></select>
+      <select id="lang" aria-label="Idioma do currículo"><option value="pt">PT</option><option value="en">EN</option></select>
+      <button id="go">Gerar</button>
+    </form>
+    <details>
+      <summary>Melhorar os textos com IA (opcional)</summary>
+      <p class="small">Usa a <b>sua</b> chave da Anthropic. Ela vai direto do seu navegador para a Anthropic e não passa por nenhum servidor do prettygit. A IA só usa fatos do seu GitHub.</p>
+      <div class="ai">
+        <input id="key" type="password" placeholder="sk-ant-..." autocomplete="off" aria-label="Chave da API da Anthropic">
+        <button id="improve" class="ghost" type="button" disabled>Melhorar com IA</button>
+      </div>
+      <label class="small"><input id="remember" type="checkbox"> lembrar a chave neste navegador</label>
+    </details>
+    <p id="status" role="status" aria-live="polite"></p>
+  </header>
+
+  <main id="out">
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" aria-controls="p-readme" id="t-readme">README</button>
+      <button role="tab" aria-selected="false" aria-controls="p-source" id="t-source">Markdown</button>
+      <button role="tab" aria-selected="false" aria-controls="p-resume" id="t-resume">Currículo</button>
+    </div>
+    <section class="panel" id="p-readme" role="tabpanel" aria-labelledby="t-readme">
+      <div class="bar"><button type="button" id="copy">Copiar Markdown</button><button type="button" class="ghost" id="dl">Baixar README + assets</button></div>
+      <div id="md"></div>
+    </section>
+    <section class="panel" id="p-source" role="tabpanel" aria-labelledby="t-source" hidden>
+      <textarea id="src" aria-label="Markdown do README" readonly></textarea>
+    </section>
+    <section class="panel" id="p-resume" role="tabpanel" aria-labelledby="t-resume" hidden>
+      <div class="bar"><button type="button" id="pdf">Salvar como PDF</button><span class="small">Na janela de impressão, escolha "Salvar como PDF".</span></div>
+      <iframe id="cv" title="Prévia do currículo"></iframe>
+    </section>
+  </main>
+</div>
+<footer><div class="wrap">Open source · <a href="https://github.com/DadoNitz/prettygit">github.com/DadoNitz/prettygit</a> · também existe como CLI e plugin do Claude Code.</div></footer>
+<script type="module" src="/web/app.mjs"></script>
+</body>
+</html>
