@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>prettygit · make your GitHub pretty</title>
+<meta name="description" content="prettygit reads your public GitHub profile and writes a profile README and a PDF résumé in four styles: professional, aesthetic, direct and noir. Open source, zero dependencies, runs in your browser.">
+<meta name="theme-color" content="#f5f5f7">
+<meta property="og:type" content="website">
+<meta property="og:title" content="prettygit · make your GitHub pretty">
+<meta property="og:description" content="A profile README and a PDF résumé from your public GitHub, in four styles. Open source, zero dependencies.">
+<meta property="og:image" content="https://prettygit-ruddy.vercel.app/web/landing/preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-family=%27monospace%27 font-size=%2716%27 fill=%27white%27 text-anchor=%27middle%27%3Epg%3C/text%3E%3C/svg%3E">
+<link rel="preload" href="/web/landing/fonts/bricolage-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/web/landing/landing.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="nav" data-tone="light">
+  <div class="wrap nav-in">
+    <a class="wordmark" href="#top" data-i18n-attr="aria-label:nav.home" aria-label="prettygit, back to top">prettygit<span class="cursor" aria-hidden="true">_</span></a>
+    <nav class="nav-links" data-i18n-attr="aria-label:nav.label" aria-label="Sections">
+      <a href="#styles" data-i18n="nav.styles">Styles</a>
+      <a href="#how" data-i18n="nav.how">How it works</a>
+      <a href="#ai" data-i18n="nav.ai">AI</a>
+      <a href="#terminal" data-i18n="nav.terminal">Terminal</a>
+    </nav>
+    <div class="nav-end">
+      <div class="lang" role="group" data-i18n-attr="aria-label:nav.lang" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="pt" aria-pressed="false">PT</button>
+      </div>
+      <a class="btn btn-sm" href="/app" data-i18n="open">Open the app</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <h1 id="hero-title" class="display">
+        <span class="line"><span data-i18n="hero.l1">Make your</span></span>
+        <span class="line"><span data-i18n="hero.l2">GitHub pretty.</span></span>
+      </h1>
+      <div class="hero-copy">
+        <p class="lead" data-i18n="hero.lead">prettygit reads your public GitHub profile and writes a profile README and a PDF résumé, in four styles. Free, open source, nothing to install.</p>
+        <div class="actions">
+          <a class="btn" href="/app" data-i18n="open">Open the app</a>
+          <a class="text-link" href="https://github.com/DadoNitz/prettygit"><span data-i18n="star">Star on GitHub</span><span class="stars" data-stars></span></a>
+        </div>
+      </div>
+      <figure class="hero-term" data-ui>
+        <img id="term" width="460" height="294" alt="Noir terminal generated for the profile, typing whoami, the stack and the current projects." data-i18n-attr="alt:hero.termAlt">
+      </figure>
+      <figure class="hero-banner">
+        <div class="banner-frame" data-ui>
+          <img id="banner" width="1200" height="320" alt="Noir banner generated for Eduardo Nitz: the name in spaced capitals, a headline and lines of code behind it.">
+        </div>
+        <figcaption class="small muted" id="banner-cap" data-i18n="hero.caption">The noir banner and terminal of github.com/DadoNitz, drawn live in this page by the same code the CLI runs.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="styles scene" id="styles" data-scene="styles" data-hold="3" data-style="professional" aria-labelledby="styles-title">
+    <div class="wrap section-head">
+      <h2 id="styles-title" class="head" data-i18n="styles.title">One profile, four styles.</h2>
+      <p class="lead" data-i18n="styles.lead">Same facts, different voice. Every style writes a README and an A4 résumé. Pick one and watch it render.</p>
+    </div>
+    <div class="scene-track">
+      <div class="scene-stage">
+        <div class="wrap stage-grid">
+          <div class="controls">
+            <fieldset class="seg">
+              <legend class="sr-only" data-i18n="styles.legend">Style</legend>
+              <span class="seg-thumb" aria-hidden="true"></span>
+              <label><input type="radio" name="style" value="professional" checked><span>Professional</span></label>
+              <label><input type="radio" name="style" value="aesthetic"><span>Aesthetic</span></label>
+              <label><input type="radio" name="style" value="direct"><span>Direct</span></label>
+              <label><input type="radio" name="style" value="noir"><span>Noir</span></label>
+            </fieldset>
+            <div class="style-copy">
+              <h3 class="title" id="style-title" data-i18n="style.professional.title">Calm and recruiter‑ready.</h3>
+              <p id="style-desc" data-i18n="style.professional.desc">Serif headings in one clean column, safe for applicant tracking systems.</p>
+            </div>
+            <div class="code" data-ui>
+              <pre><code id="style-cmd">npx --package=github:DadoNitz/prettygit prettygit resume USER --style professional --lang en</code></pre>
+              <button type="button" class="copy" data-copy="#style-cmd" data-i18n="copy">Copy</button>
+            </div>
+            <form class="try" id="try" novalidate>
+              <label for="try-user" data-i18n="styles.try">See it with your GitHub</label>
+              <div class="try-row">
+                <input id="try-user" name="u" required pattern="[A-Za-z0-9](?:[A-Za-z0-9]|-(?=[A-Za-z0-9])){0,38}" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="username" data-i18n-attr="placeholder:styles.tryPh">
+                <button class="btn btn-sm" data-i18n="styles.tryBtn">Render</button>
+              </div>
+              <p class="small muted try-status" id="try-status" role="status"></p>
+            </form>
+          </div>
+          <div class="output">
+            <figure class="readme" data-ui>
+              <figcaption><span class="who" data-login>DadoNitz</span> / README.md</figcaption>
+              <div class="readme-body" tabindex="0" role="region" data-i18n-attr="aria-label:styles.readme" aria-label="README source">
+                <pre data-pane="professional" class="is-on"><code></code></pre>
+                <pre data-pane="aesthetic"><code></code></pre>
+                <pre data-pane="direct"><code></code></pre>
+                <pre data-pane="noir"><code></code></pre>
+              </div>
+            </figure>
+            <figure class="sheet" data-ui>
+              <div class="paper">
+                <iframe data-sheet="professional" class="is-on" tabindex="-1" sandbox title="Résumé in the professional style"></iframe>
+                <iframe data-sheet="aesthetic" tabindex="-1" sandbox title="Résumé in the aesthetic style"></iframe>
+                <iframe data-sheet="direct" tabindex="-1" sandbox title="Résumé in the direct style"></iframe>
+                <iframe data-sheet="noir" tabindex="-1" sandbox title="Résumé in the noir style"></iframe>
+              </div>
+              <figcaption id="sheet-name">resume-professional.pdf</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="profile scene dark" id="profile" data-scene="profile" data-hold="3" data-tone="dark" aria-labelledby="profile-title">
+    <div class="wrap section-head">
+      <h2 id="profile-title" class="head" data-i18n="profile.title">A real profile, made with noir.</h2>
+      <p class="lead" data-i18n="profile.lead">This is github.com/DadoNitz. Its README came out of prettygit.</p>
+    </div>
+    <div class="scene-track">
+      <div class="scene-stage">
+        <div class="wrap profile-grid">
+          <div class="beats">
+            <div class="beat is-on" data-beat="0"><h3 class="title" data-i18n="beat.0.t">The whole profile.</h3><p class="lead" data-i18n="beat.0.d">Banner, about me, stack, featured work and stats, in one README.</p></div>
+            <div class="beat" data-beat="1"><h3 class="title" data-i18n="beat.1.t">A banner with your name.</h3><p class="lead" data-i18n="beat.1.d">An animated SVG with your headline, and your languages written into the code.</p></div>
+            <div class="beat" data-beat="2"><h3 class="title" data-i18n="beat.2.t">A terminal that types.</h3><p class="lead" data-i18n="beat.2.d">whoami, your stack and what you are building, one line at a time.</p></div>
+            <div class="beat" data-beat="3"><h3 class="title" data-i18n="beat.3.t">Your stack, as badges.</h3><p class="lead" data-i18n="beat.3.d">One black badge per language and tool, each with its logo.</p></div>
+            <div class="beat" data-beat="4"><h3 class="title" data-i18n="beat.4.t">Your best work, first.</h3><p class="lead" data-i18n="beat.4.d">Featured repositories with their descriptions and a link to the live site.</p></div>
+          </div>
+          <figure class="print">
+            <div class="print-frame">
+              <img src="/web/landing/img/noir-profile.webp" width="890" height="1060" loading="lazy" decoding="async" data-i18n-attr="alt:profile.alt" alt="The GitHub profile README of DadoNitz in the noir style: a black banner with the name, social badges, an about-me section beside a terminal, technology badges and featured repositories.">
+            </div>
+            <figcaption class="small"><a href="https://github.com/DadoNitz">github.com/DadoNitz</a></figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how" id="how" aria-labelledby="how-title">
+    <div class="wrap">
+      <h2 id="how-title" class="head" data-reveal data-i18n="how.title">From profile to PDF.</h2>
+      <div class="calls">
+        <div class="call" data-reveal>
+          <p class="title-s" data-i18n="how.1">First, it reads your public profile.</p>
+          <div class="code" data-ui>
+            <pre><code id="cmd-fetch">npx --package=github:DadoNitz/prettygit prettygit fetch USER</code></pre>
+            <button type="button" class="copy" data-copy="#cmd-fetch" data-i18n="copy">Copy</button>
+          </div>
+          <div class="resp" data-ui><span class="file">out/<span data-login>DadoNitz</span>/profile.json</span><pre><code id="json-out"></code></pre></div>
+          <p class="muted" data-i18n="how.1n">No login needed. Sign in with gh or set GITHUB_TOKEN for a higher rate limit.</p>
+        </div>
+        <div class="call" data-reveal>
+          <p class="title-s" data-i18n="how.2">Then it writes the README.</p>
+          <div class="code" data-ui>
+            <pre><code id="cmd-readme">npx --package=github:DadoNitz/prettygit prettygit readme USER --style noir</code></pre>
+            <button type="button" class="copy" data-copy="#cmd-readme" data-i18n="copy">Copy</button>
+          </div>
+          <div class="resp" data-ui><pre><code id="readme-out">out/DadoNitz/README.noir.md
+out/DadoNitz/assets/noir-banner.svg
+out/DadoNitz/assets/noir-terminal.svg</code></pre></div>
+          <p class="muted" data-i18n="how.2n">The two noir SVGs go next to README.md in your USER/USER repository.</p>
+        </div>
+        <div class="call call-final" data-reveal>
+          <p class="title-s" data-i18n="how.3">And it prints the résumé.</p>
+          <div class="code" data-ui>
+            <pre><code id="cmd-resume">npx --package=github:DadoNitz/prettygit prettygit resume USER --style aesthetic --lang en</code></pre>
+            <button type="button" class="copy" data-copy="#cmd-resume" data-i18n="copy">Copy</button>
+          </div>
+          <div class="resp resp-final">
+            <pre data-ui><code id="resume-out">out/DadoNitz/resume-aesthetic.html
+out/DadoNitz/resume-aesthetic.pdf</code></pre>
+            <figure class="pdf-shot">
+              <img src="/web/landing/img/resume-aesthetic.webp" width="1240" height="1150" loading="lazy" decoding="async" data-i18n-attr="alt:how.shotAlt" alt="First page of the aesthetic résumé: a pastel sidebar with avatar, contact and skill chips, and the name with summary and projects on the right.">
+            </figure>
+          </div>
+          <p class="muted" data-i18n="how.3n">Saved as HTML and PDF. The PDF comes from the Chrome, Edge or Chromium already on your machine.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ai" id="ai" aria-labelledby="ai-title">
+    <div class="wrap ai-grid">
+      <div class="ai-text" data-reveal>
+        <h2 id="ai-title" class="head" data-i18n="ai.title">Optional AI, with your own key.</h2>
+        <p class="lead" data-i18n="ai.lead">Paste an Anthropic API key in the app and Claude rewrites your copy. It works only from the facts in your GitHub.</p>
+        <div class="lists">
+          <div>
+            <h3 class="title-s" data-i18n="ai.writes">What Claude writes</h3>
+            <ul>
+              <li data-i18n="ai.w1">A short headline</li>
+              <li data-i18n="ai.w2">A three-word motto</li>
+              <li data-i18n="ai.w3">Your intro</li>
+              <li data-i18n="ai.w4">The about-me bullets</li>
+              <li data-i18n="ai.w5">A closing line</li>
+              <li data-i18n="ai.w6">The résumé summary</li>
+              <li data-i18n="ai.w7">Which repos to feature</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="title-s" data-i18n="ai.never">What it never does</h3>
+            <ul class="never">
+              <li data-i18n="ai.n1">Invent jobs, degrees, numbers or skills</li>
+              <li data-i18n="ai.n2">Follow instructions found inside your repos</li>
+              <li data-i18n="ai.n3">Publish anything for you</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="ai-side" data-reveal>
+        <figure class="ai-shot">
+          <img src="/web/landing/img/app-ai.webp" width="1200" height="760" loading="lazy" decoding="async" data-i18n-attr="alt:ai.shotAlt" alt="The prettygit app with the AI panel open: a password field for the Anthropic key, an Improve with AI button and a remember-the-key checkbox.">
+          <figcaption class="small muted" data-i18n="ai.shotCap">The AI panel in the app, which speaks Portuguese for now.</figcaption>
+        </figure>
+        <div class="path" data-ui>
+          <div class="path-row">
+            <span class="node" data-i18n="ai.browser">This browser</span>
+            <span class="wire"><span data-i18n="ai.key">your key</span></span>
+            <span class="node" data-i18n="ai.api">api.anthropic.com</span>
+          </div>
+          <div class="path-none"><span data-i18n="ai.server">prettygit servers in between</span><b data-i18n="ai.none">none</b></div>
+        </div>
+        <p class="muted" data-i18n="ai.note">Remembering the key is off by default. Turn it on and the key stays in this browser’s localStorage, nowhere else.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="term dark" id="terminal" data-tone="dark" aria-labelledby="term-title">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <h2 id="term-title" class="head" data-i18n="term.title">At home in your terminal.</h2>
+        <p class="lead" data-i18n="term.lead">The same styles run as a Node CLI with zero dependencies, and as a Claude Code plugin with an agent and five skills.</p>
+      </div>
+      <div class="cells">
+        <article class="cell cell-wide" data-reveal>
+          <div class="cell-text"><h3 class="title-s" data-i18n="term.c1t">Run it with npx, or clone it</h3><p data-i18n="term.c1d">No npm install either way. Node 20 or newer, and everything lands in out/USER/.</p></div>
+          <div class="frag frag-stack">
+            <div class="code" data-ui>
+              <pre><code id="cmd-npx">npx --package=github:DadoNitz/prettygit prettygit readme USER --style noir</code></pre>
+              <button type="button" class="copy" data-copy="#cmd-npx" data-i18n="copy">Copy</button>
+            </div>
+            <div class="code" data-ui>
+              <pre><code id="cmd-clone">git clone https://github.com/DadoNitz/prettygit.git
+cd prettygit
+node bin/prettygit.mjs resume USER --style direct --lang en</code></pre>
+              <button type="button" class="copy" data-copy="#cmd-clone" data-i18n="copy">Copy</button>
+            </div>
+          </div>
+        </article>
+        <article class="cell cell-wide cell-flip" data-reveal>
+          <div class="menu frag" data-ui>
+            <div class="menu-input"><span class="prompt">&gt;</span> <code>/prettygit:</code><span class="caret" aria-hidden="true"></span></div>
+            <ul>
+              <li class="is-hover"><code>/prettygit:profile-audit</code><span>Audit a GitHub profile with an evidence-based score from 0 to 100 and prioritized fixes.</span></li>
+              <li><code>/prettygit:profile-readme</code><span>Generate and refine a GitHub profile README using prettygit's styles.</span></li>
+              <li><code>/prettygit:resume-pdf</code><span>Interview for verified career details and generate a styled PDF resume.</span></li>
+              <li><code>/prettygit:repo-polish</code><span>Improve one repository's description, topics, and README, with explicit confirmation before remote edits.</span></li>
+            </ul>
+          </div>
+          <div class="cell-text"><h3 class="title-s" data-i18n="term.c3t">A Claude Code plugin</h3><p data-i18n="term.c3d">Ask the prettygit agent to audit, interview and write, or call one skill at a time.</p></div>
+        </article>
+        <article class="cell cell-flip" data-reveal>
+          <div class="audit frag" data-ui>
+            <table>
+              <caption class="sr-only" data-i18n="audit.caption">Points per check</caption>
+              <tbody>
+                <tr><th scope="row" data-i18n="audit.bio">Bio</th><td><span class="bar" style="--v:15"></span></td><td>15</td></tr>
+                <tr><th scope="row" data-i18n="audit.avatar">Avatar</th><td><span class="bar" style="--v:10"></span></td><td>10</td></tr>
+                <tr><th scope="row" data-i18n="audit.pinned">Pinned repositories</th><td><span class="bar" style="--v:15"></span></td><td>15</td></tr>
+                <tr><th scope="row" data-i18n="audit.readme">Profile README</th><td><span class="bar" style="--v:20"></span></td><td>20</td></tr>
+                <tr><th scope="row" data-i18n="audit.desc">Repository descriptions</th><td><span class="bar" style="--v:10"></span></td><td>10</td></tr>
+                <tr><th scope="row" data-i18n="audit.topics">Repository topics</th><td><span class="bar" style="--v:10"></span></td><td>10</td></tr>
+                <tr><th scope="row" data-i18n="audit.names">Names</th><td><span class="bar" style="--v:10"></span></td><td>10</td></tr>
+                <tr><th scope="row" data-i18n="audit.links">Links</th><td><span class="bar" style="--v:10"></span></td><td>10</td></tr>
+              </tbody>
+              <tfoot><tr><th scope="row" data-i18n="audit.total">Total</th><td></td><td>100</td></tr></tfoot>
+            </table>
+          </div>
+          <div class="cell-text"><h3 class="title-s" data-i18n="term.c4t">A score out of 100</h3><p data-i18n="term.c4d">profile-audit checks eight things, cites what it saw and lists the three fixes that matter most.</p></div>
+        </article>
+        <article class="cell" data-reveal>
+          <div class="cell-text"><h3 class="title-s" data-i18n="term.c5t">An interview, not a guess</h3><p data-i18n="term.c5d">resume-pdf asks about your experience and education and keeps the answers in a private resume.json.</p></div>
+          <div class="code frag" data-ui>
+            <span class="file">resume.json</span>
+            <pre><code>{
+  "summary": "",
+  "experience": [{
+    "role": "", "company": "",
+    "period": "", "description": ""
+  }],
+  "education": [{
+    "course": "", "school": "", "period": ""
+  }],
+  "skills": []
+}</code></pre>
+          </div>
+        </article>
+        <article class="cell cell-flip" data-reveal>
+          <div class="code frag" data-ui>
+            <pre><code>$ node bot/run.mjs
+polishing DadoNitz/claude-usage-pwa ...
+1f208cf ui: press feedback on buttons and bars that grow in from their baseline
+ index.html | 10 ++++++++++
+https://github.com/DadoNitz/claude-usage-pwa/pull/1</code></pre>
+          </div>
+          <div class="cell-text"><h3 class="title-s" data-i18n="term.c6t">A polish bot that asks first</h3><p data-i18n="term.c6d">Once a week it opens one draft pull request with a UI improvement, only on repos in its allowlist.</p></div>
+        </article>
+      </div>
+      <p class="lead safety" data-reveal data-i18n="term.safety">Nothing gets published behind your back. The agent shows you the exact diff and target, and writes to USER/USER only after you confirm.</p>
+    </div>
+  </section>
+
+  <section class="cta" id="start" aria-labelledby="cta-title">
+    <div class="wrap">
+      <form class="cta-form" id="cta-form" action="/app" method="get" data-reveal>
+        <h2 id="cta-title" class="display">
+          <span class="cta-pre" data-i18n="cta.pre">Make github.com/</span><span class="cta-tail"><input name="u" id="cta-user" required pattern="[A-Za-z0-9](?:[A-Za-z0-9]|-(?=[A-Za-z0-9])){0,38}" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="you" data-i18n-attr="placeholder:cta.ph;aria-label:cta.label" aria-label="Your GitHub username"><button type="submit" class="cta-go" aria-describedby="cta-note" data-i18n="cta.go">pretty.</button></span>
+        </h2>
+      </form>
+      <p class="cta-note muted" id="cta-note" data-i18n="cta.note">Opens the prettygit app with your profile loaded. It all runs in your browser.</p>
+      <div class="oss" data-reveal>
+        <p class="lead" data-i18n="oss.lead">MIT licensed, zero dependencies, every line on GitHub.</p>
+        <div class="actions">
+          <a class="btn" href="https://github.com/DadoNitz/prettygit"><span data-i18n="star">Star on GitHub</span><span class="stars" data-stars></span></a>
+          <a class="text-link" href="/app" data-i18n="open">Open the app</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <p><span data-i18n="foot.made">prettygit, open source by</span> <a href="https://github.com/DadoNitz">DadoNitz</a></p>
+    <nav data-i18n-attr="aria-label:foot.label" aria-label="Links">
+      <a href="https://github.com/DadoNitz/prettygit">GitHub</a>
+      <a href="/app" data-i18n="foot.app">App</a>
+      <a href="https://github.com/DadoNitz/prettygit/blob/main/LICENSE" data-i18n="foot.licence">MIT licence</a>
+    </nav>
+    <p class="muted" data-i18n="foot.privacy">No cookies, no analytics.</p>
+  </div>
+</footer>
+<script type="module" src="/web/landing/main.mjs"></script>
+</body>
+</html>
