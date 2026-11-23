@@ -18,7 +18,7 @@ async function renderMarkdown(md) {
   const res = await fetch('https://api.github.com/markdown', {
     method: 'POST',
     headers: { Accept: 'text/html', 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text: md, mode: 'gfm' }),
+    body: JSON.stringify({ text: md, mode: 'markdown' }),
   });
   if (!res.ok) throw new Error(`GitHub markdown ${res.status}`);
   $('md').innerHTML = await res.text(); // sanitized by GitHub
