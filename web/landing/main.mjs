@@ -63,6 +63,8 @@ const svgUrls = {};
 function setSvg(img, name, svg) {
   // the SVGs animate themselves; with reduced motion they arrive finished
   if (reduced.matches) svg = svg.replace('</style>', '*{animation:none!important}.l{opacity:1}</style>');
+  // the terminal would type for ~4.5 s inside an empty card; here its lines are there from the first frame and only its cursor blinks
+  else if (name === 'noir-terminal.svg') svg = svg.replace('</style>', '.l{opacity:1;animation:none}</style>');
   const old = svgUrls[name];
   svgUrls[name] = img.src = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
   if (old) URL.revokeObjectURL(old);
