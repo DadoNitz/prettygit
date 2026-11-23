@@ -301,7 +301,7 @@ html:not(.js) .hero-term, html:not(.js) .banner-frame { display: none; }
 .safety { margin-top: 72px; max-width: 46ch; }
 
 /* Closing: the sentence is the form */
-.cta { padding: var(--gap) 0 calc(var(--gap) * .8); }
+.cta { min-height: calc(100svh - 72px); display: grid; align-content: center; padding: var(--gap) 0 calc(var(--gap) * .6); }
 .cta-form .display { font-size: clamp(2.5rem, 6.6vw, 6.25rem); }
 .cta-pre, .cta-tail { display: block; }
 .cta-tail { display: flex; align-items: center; gap: .14em; margin-top: .06em; }
