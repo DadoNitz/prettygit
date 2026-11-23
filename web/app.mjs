@@ -78,6 +78,10 @@ $('improve').addEventListener('click', async () => {
 
 $('remember').addEventListener('change', () => { if (!$('remember').checked) localStorage.removeItem(KEY); });
 
+// /app?u=USER (from the landing page) opens straight on that profile; the form's pattern still validates it.
+const u = new URLSearchParams(location.search).get('u');
+if (u) { $('user').value = u; $('f').requestSubmit(); }
+
 $('copy').addEventListener('click', async () => {
   await navigator.clipboard.writeText(state.readme);
   say('Markdown copiado. Cole no README.md do repositório com o seu nome de usuário.');
