@@ -72,15 +72,15 @@
     <div class="scene-track">
       <div class="scene-stage">
         <div class="wrap stage-grid">
+          <fieldset class="seg">
+            <legend class="sr-only" data-i18n="styles.legend">Style</legend>
+            <span class="seg-thumb" aria-hidden="true"></span>
+            <label><input type="radio" name="style" value="professional" checked><span>Professional</span></label>
+            <label><input type="radio" name="style" value="aesthetic"><span>Aesthetic</span></label>
+            <label><input type="radio" name="style" value="direct"><span>Direct</span></label>
+            <label><input type="radio" name="style" value="noir"><span>Noir</span></label>
+          </fieldset>
           <div class="controls">
-            <fieldset class="seg">
-              <legend class="sr-only" data-i18n="styles.legend">Style</legend>
-              <span class="seg-thumb" aria-hidden="true"></span>
-              <label><input type="radio" name="style" value="professional" checked><span>Professional</span></label>
-              <label><input type="radio" name="style" value="aesthetic"><span>Aesthetic</span></label>
-              <label><input type="radio" name="style" value="direct"><span>Direct</span></label>
-              <label><input type="radio" name="style" value="noir"><span>Noir</span></label>
-            </fieldset>
             <div class="style-copy">
               <h3 class="title" id="style-title" data-i18n="style.professional.title">Calm and recruiter‑ready.</h3>
               <p id="style-desc" data-i18n="style.professional.desc">Serif headings in one clean column, safe for applicant tracking systems.</p>
@@ -102,10 +102,10 @@
             <figure class="readme" data-ui>
               <figcaption><span class="who" data-login>DadoNitz</span> / README.md</figcaption>
               <div class="readme-body" tabindex="0" role="region" data-i18n-attr="aria-label:styles.readme" aria-label="README source">
-                <pre data-pane="professional" class="is-on"><code></code></pre>
-                <pre data-pane="aesthetic"><code></code></pre>
-                <pre data-pane="direct"><code></code></pre>
-                <pre data-pane="noir"><code></code></pre>
+                <div data-pane="professional" class="is-on"><div class="md"></div></div>
+                <div data-pane="aesthetic"><div class="md"></div></div>
+                <div data-pane="direct"><div class="md"></div></div>
+                <div data-pane="noir"><div class="md"></div></div>
               </div>
             </figure>
             <figure class="sheet" data-ui>

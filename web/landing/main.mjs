@@ -59,21 +59,20 @@ function applyLang(lang, save = true) {
 // ---------- the product, rendered ----------
 const extra = () => (state.sample ? { ...EXTRA, summary: SUMMARY[state.lang] } : {});
 
-function setSvg(img, svg) {
+const svgUrls = {};
+function setSvg(img, name, svg) {
   // the SVGs animate themselves; with reduced motion they arrive finished
   if (reduced.matches) svg = svg.replace('</style>', '*{animation:none!important}.l{opacity:1}</style>');
-  const old = img.dataset.url;
-  img.dataset.url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
-  img.src = img.dataset.url;
+  const old = svgUrls[name];
+  svgUrls[name] = img.src = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
   if (old) URL.revokeObjectURL(old);
 }
 
 function renderProfile() {
   const p = state.profile;
   const a = STYLES.noir.assets(p, { extra: extra() });
-  setSvg($('#banner'), a['assets/noir-banner.svg']);
-  setSvg($('#term'), a['assets/noir-terminal.svg']);
-  for (const id of IDS) $(`[data-pane="${id}"] code`).textContent = STYLES[id].readme(p, { extra: extra() });
+  setSvg($('#banner'), 'noir-banner.svg', a['assets/noir-banner.svg']);
+  setSvg($('#term'), 'noir-terminal.svg', a['assets/noir-terminal.svg']);
   for (const el of $$('[data-login]')) el.textContent = p.login;
   const kv = (o) => `{ ${Object.entries(o).map(([k, v]) => `"${k}": ${JSON.stringify(v)}`).join(', ')} }`;
   $('#json-out').textContent = [
@@ -90,6 +89,7 @@ function renderProfile() {
   $('#resume-out').textContent = `out/${p.login}/resume-aesthetic.html\nout/${p.login}/resume-aesthetic.pdf`;
   renderCaptions();
   renderSheets();
+  renderReadmes();
 }
 
 function renderCaptions() {
@@ -99,8 +99,9 @@ function renderCaptions() {
   for (const id of IDS) $(`[data-sheet="${id}"]`).title = t('styles.sheet', id);
 }
 
-// Résumés are filled only when their section is near, so the first screen loads alone.
+// Résumés and READMEs are filled only when their section is near, so the first screen loads alone.
 const sheets = { dirty: true, near: false };
+const readmes = { dirty: true, near: false, gen: 0 };
 function renderSheets() {
   sheets.dirty = true;
   if (!sheets.near) return;
@@ -113,6 +114,63 @@ function onScreen(html) {
   return m && m[1].trim() !== '0' ? html.replace('</style>', `@media screen{html{padding:${m[1].trim()}}}</style>`) : html;
 }
 new IntersectionObserver(([e]) => { sheets.near = e.isIntersecting; if (sheets.near && sheets.dirty) renderSheets(); }, { rootMargin: '1200px 0px' }).observe($('#styles'));
+// READMEs cost GitHub API calls (60/hour without login) and pull third-party badges: only when the section is close
+new IntersectionObserver(([e]) => { readmes.near = e.isIntersecting; if (readmes.near && readmes.dirty) renderReadmes(); }, { rootMargin: '300px 0px' }).observe($('#styles'));
+
+// The README is drawn by GitHub's own renderer, as on a profile page; cached per style and user for the session.
+const hash = (s) => { let h = 5381; for (let i = 0; i < s.length; i++) h = (h * 33 + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); };
+async function githubHtml(id, login, text) {
+  const key = `prettygit:md:${id}:${login}:${hash(text)}`;
+  try { const hit = sessionStorage.getItem(key); if (hit) return hit; } catch {}
+  const res = await fetch('https://api.github.com/markdown', {
+    method: 'POST',
+    headers: { Accept: 'text/html', 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text, mode: 'markdown' }), // 'markdown' renders like a README; 'gfm' turns every line break into <br>
+  });
+  if (!res.ok) throw new Error(`GitHub markdown ${res.status}`);
+  const html = await res.text();
+  try { sessionStorage.setItem(key, html); } catch {}
+  return html;
+}
+async function renderReadmes() {
+  readmes.dirty = true;
+  if (!readmes.near) return;
+  readmes.dirty = false;
+  const gen = ++readmes.gen;
+  const p = state.profile;
+  for (const id of [state.style, ...IDS.filter((i) => i !== state.style)]) {
+    const text = STYLES[id].readme(p, { extra: extra() });
+    const box = $(`[data-pane="${id}"] .md`);
+    try {
+      const html = await githubHtml(id, p.login, text);
+      if (gen !== readmes.gen) return;
+      box.innerHTML = html; // sanitized by GitHub, as in web/app.mjs
+      box.classList.remove('raw');
+      // the README's headings belong to the README, not to this page's outline: keep their look, drop the role
+      for (const h of box.querySelectorAll('h1, h2, h3, h4, h5, h6')) {
+        const d = Object.assign(document.createElement('div'), { className: h.localName });
+        if (h.hasAttribute('align')) d.setAttribute('align', h.getAttribute('align'));
+        d.append(...h.childNodes);
+        h.replaceWith(d);
+      }
+      for (const img of box.querySelectorAll('img')) {
+        const own = svgUrls[img.getAttribute('src')?.split('/').pop()];
+        if (own) img.src = own; // ./assets/noir-*.svg are the SVGs drawn on this page
+        img.loading = 'lazy';
+        img.decoding = 'async';
+      }
+      for (const a of box.querySelectorAll('a')) { a.tabIndex = -1; a.target = '_blank'; a.rel = 'noopener noreferrer'; }
+    } catch {
+      if (gen !== readmes.gen) return;
+      const code = document.createElement('code');
+      code.textContent = text; // offline or rate-limited: the Markdown itself, wrapped
+      box.replaceChildren(document.createElement('pre'));
+      box.firstChild.append(code);
+      box.classList.add('raw');
+    }
+    if (id === state.style) scrubReadme();
+  }
+}
 
 const paper = $('.paper');
 new ResizeObserver(() => paper.style.setProperty('--s', (paper.clientWidth / 794).toFixed(4))).observe(paper);
@@ -180,12 +238,23 @@ function scene(section, render) {
 
 // Styles: four beats, one per style. A click scrolls to that style's beat; beats passed on the way are skipped.
 let lock = null;
+let readFrac = 0;
 const stylesScene = scene(stylesEl, (p) => {
-  if (p === null) return;
-  const beat = Math.min(IDS.length - 1, Math.floor(p * IDS.length));
+  if (p === null) { readFrac = 0; for (const md of $$('.md', stylesEl)) md.style.transform = ''; return; }
+  const u = p * IDS.length;
+  const beat = Math.min(IDS.length - 1, Math.floor(u));
   if (lock !== null) { if (beat !== lock) return; lock = null; }
   setStyle(IDS[beat]);
+  readFrac = clamp((u - beat - 0.12) / 0.76); // top of the README as the beat opens, its end as it closes
+  scrubReadme();
 });
+// Within a beat the README reads top to bottom with the scroll, so nothing in it is out of reach.
+function scrubReadme() {
+  if (!stylesScene?.on) return;
+  const md = $(`[data-pane="${state.style}"] .md`);
+  const view = md.closest('.readme-body').clientHeight;
+  md.style.transform = `translate3d(0, ${(-readFrac * Math.max(0, md.offsetHeight - view)).toFixed(1)}px, 0)`;
+}
 for (const ev of ['wheel', 'touchstart', 'keydown']) addEventListener(ev, () => { lock = null; }, { passive: true });
 
 seg.addEventListener('change', (e) => {
@@ -193,7 +262,7 @@ seg.addEventListener('change', (e) => {
   setStyle(e.target.value);
   if (!stylesScene.on) return;
   lock = at;
-  scrollTo({ top: stylesScene.top() + ((at + 0.5) / IDS.length) * stylesScene.span(), behavior: 'smooth' });
+  scrollTo({ top: stylesScene.top() + ((at + 0.08) / IDS.length) * stylesScene.span(), behavior: 'smooth' });
 });
 
 // Profile: the camera moves across the real print, one region per beat.
